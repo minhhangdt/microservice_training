@@ -2,15 +2,24 @@
 
 Follow the steps below to run
 
-Run Rabbit MQ
+Container Docke
 ----------------------------------------------
-./rabbitmq-server
+docker pull postgres
+
+docker run --name postgres-msa -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+
+docker pull rabbitmq
+
+docker run -d --hostname my-rabbit --name rabbit -p 5672:15672 rabbitmq:3-management
+
 
 Database Configuration
 ----------------------------------------------
 - Start Postgres service in localhost on port 5432
 - Make sure there is a user 'postgres' with no password
 - Under 'postgres' user, execute setup/build_db.sql to set up new DB and load dummy data
+
+- Start H2 DB by running the luggage project and go this link http://localhost:9090/h2/login.do
 
 Build all projects using the pom.xml at the root level. 
 -------------------------------------------------
@@ -42,6 +51,9 @@ java –jar target/checkin-apigateway-1.0.jar
 
 java –jar target/book-apigateway-1.0.jar
 
+java -jar target/luggage-1.0.jar
+
 java -jar target/website-1.0.jar
+
 
 Open the browser window and point to http://localhost:8001
